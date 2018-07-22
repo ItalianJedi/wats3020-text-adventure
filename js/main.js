@@ -3,42 +3,59 @@ let playerName = "";
 let choiceList = [];
 let currentPage = null;
 
-///////////////////////////////////////////////////
-//////// TODOs ///////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-// Fill in the blanks below to complete each TODO task.                       //
-////////////////////////////////////////////////////////////////////////////////
 
-// TODO: Prompt the user for their name. Store the name in the variable `playerName`.
+/* playerName will prompt the user for their name. This will store the name in the variable 
+`playerName` in the template literal in the story below. */
 
+playerName = prompt('Hello, what is your name?');
 
+/* Create a function called `getCurrentPage()`. It should accept one
+ parameter, which is the `slug` for the current page. This function will fetch
+ the current page and return a page object using the `slug` value for a key.*/
 
-// TODO: Create a function called `getCurrentPage()`. It should accept one
-// parameter, which is the `slug` for the current page. This function will fetch
-// the current page and return a page object using the `slug` value for a key.
+/* Need to get the slug out of the variable called storyData. If slug equaled p1, we will pull p1. If slug 
+  equaled homeEnd it will pull homeEnd.*/
 
+function getCurrentPage(slug){
+    currentPage = storyData[slug];
+    return currentPage;
+}
 
+/* Created a function called `recordChoice()` that will accept a `slug`
+ parameter and add it to the `choiceList` Array (probably using `push()`).*/
 
-// TODO: Create a function called `recordChoice()` that will accept a `slug`
-// parameter and add it to the `choiceList` Array (probably using `push()`).
+function recordChoice(slug){
+    // Added the value to the Array
+    choiceList.push(slug);
+    // Will show what this function does in console.log
+    console.log(`Added ${slug} to the choiceList array`);
+}
 
+/* Created a function called `undoChoice()` that will remove the last
+ `slug` in the `choiceList` Array and then will return the last `slug` in the
+ `choiceList` Array.*/
 
+function undoChoice(){
+    choiceList.pop();
+    console.log(`Returning to previous page`);
+    // After removing the last slug using pop, we will return the new current last slug.
+    return choiceList[choiceList.length-1];
+}
 
-// TODO: Create a function called `undoChoice()` that will remove the last
-// `slug` in the `choiceList` Array and then will return the last `slug` in the
-// `choiceList` Array.
+/* Created a function called `changePage()` that accepts a parameter called
+ `slug` and will handle "turning the page" in three steps:
+  1. It will call the `recordChoice()` function (and give it the `slug` as
+     a parameter.
+  2. It will set the `currentPage` value by calling the `getCurrentPage()`
+     function (and give it the `slug` as a parameter).
+  3. It will invoke the `updatePage()` function (and give it the
+     `currentPage` object as a parameter). */
 
-
-
-// TODO: Create a function called `changePage()` that accepts a parameter called
-// `slug` and which handles "turning the page" in three steps:
-//  1. It should call the `recordChoice()` function (and give it the `slug` as
-//     a parameter.
-//  2. It should set the `currentPage` value by calling the `getCurrentPage()`
-//     function (and give it the `slug` as a parameter).
-//  3. It should invoke the `updatePage()` function (and give it the
-//     `currentPage` object as a parameter).
-
+function changePage(slug){
+    recordChoice(slug);
+    currentPage = getCurrentPage(slug);
+    updatePage(currentPage);
+}
 
 
 ///////////////////////////////////////////////////
